@@ -3,7 +3,7 @@
 #define max(a, b) ((a)>(b)? (a) : (b))
 #define min(a, b) ((a)<(b)? (a) : (b))
 
-Vector2 gameSize = {-1,-1};
+Vector2 gameSize = { -1,-1 };
 
 // Clamp Vector2 value with min and max and return a new vector2
 // NOTE: Required for virtual mouse, to clamp inside virtual game size
@@ -20,7 +20,7 @@ Vector2 ClampValue(Vector2 value, Vector2 min, Vector2 max)
 // Enables letterboxing in your window
 void InitLetterbox(int gameWidth, int gameHeight) {
 	gameSize = (Vector2){ gameWidth,gameHeight };
-	TraceLog(LOG_INFO, "Letterbox mode initialized");
+	TraceLog(LOG_INFO, TextFormat("Letterbox mode initialized (%d : %d)", (int)gameSize.x, (int)gameSize.y));
 }
 
 // Gets the windows scale while letterboxing
@@ -42,8 +42,16 @@ Vector2 GetVirtualMousePosition() {
 	Vector2 virtualMouse = { 0 };
 	virtualMouse.x = (mouse.x - (GetScreenWidth() - (gameSize.x * scale)) * 0.5f) / scale;
 	virtualMouse.y = (mouse.y - (GetScreenHeight() - (gameSize.y * scale)) * 0.5f) / scale;
-	virtualMouse = ClampValue(virtualMouse, (Vector2) { 0, 0 }, (Vector2) { (float)gameSize.x, (float)gameSize.y });
+	virtualMouse = ClampValue(virtualMouse, (Vector2) { 0, 0 }, gameSize);
 	return virtualMouse;
 }
 
-
+// Draw render texture to screen, properly scaled
+void DrawLetterboxGame(RenderTexture* target) {
+	float scale = GetWindowScale();
+	DrawTexturePro(target->texture, (Rectangle) { 0.0f, 0.0f, (float)target->texture.width, (float)-target->texture.height },
+		(Rectangle) {
+		(GetScreenWidth() - ((float)gameSize.x * scale)) * 0.5f, (GetScreenHeight() - ((float)gameSize.y * scale)) * 0.5f,
+			(float)gameSize.x* scale, (float)gameSize.y* scale
+	}, (Vector2) { 0, 0 }, 0.0f, WHITE);
+}

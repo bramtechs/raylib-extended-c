@@ -7,5 +7,6 @@
 void InitLetterbox(int gameWidth, int gameHeight);
 float GetWindowScale();
 Vector2 GetVirtualMousePosition();
+void DrawLetterboxGame(RenderTexture* target);
 
 #endif

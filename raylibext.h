@@ -3,5 +3,6 @@
 
 #include "raylib.h"
 #include "rewindow.h"
+#include "retiles.h"
 
 #endif

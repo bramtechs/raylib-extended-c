@@ -10,6 +10,8 @@ set(CMAKE_C_STANDARD 11) # Requires C11 standard
 set(headers
     raylibext.h
     rewindow.h
+    retiles.h
+    reutils.h
 )
 
 # Sources to be compiled
@@ -17,6 +19,8 @@ set(src_s
     #src/tiles.c
     camera.c
     window.c
+    tiles.c
+    utils.c
     )
 
 add_library(raylib-extended ${src_s} ${headers})
