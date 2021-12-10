@@ -20,15 +20,15 @@ typedef struct  {
 } Tileset;
 
 // Create a new map to draw tiles with
-Tileset InitTileset(Texture texture, int cellSizeX, int cellSizeY);
+Tileset CreateTileset(Texture texture, int cellSizeX, int cellSizeY);
 
 // Use a new texture in this map
 void ChangeTilesetTexture(Tileset *set, Texture newTexture);
 
 // Draws a tile from the texture, draws nothing if tileID is not in range!
-void DrawTilesetTile(Tileset* set, int x, int y, int tileID);
+void DrawTilesetTile(Tileset* set, int x, int y, unsigned short tileID);
 
 // Free the memory of the tileset "cache"
-void DisposeTileset(Tileset* set);
+void UnloadTileset(Tileset* set);
 
 #endif // !RE_TILES_H

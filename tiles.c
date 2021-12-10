@@ -1,13 +1,13 @@
 #include "retiles.h"
 
-Tileset InitTileset(Texture texture, int cellSizeX, int cellSizeY){
+Tileset CreateTileset(Texture texture, int cellSizeX, int cellSizeY){
     Tileset m = { texture };
     m.cell_w = cellSizeX;
     m.cell_h = cellSizeY;
     m.cells_x = texture.width / cellSizeX;
     m.cells_y = texture.height / cellSizeY;
     m.cell_src = (Rectangle*) malloc(sizeof(Rectangle)*m.cells_x*m.cells_y);
-    TraceLog(LOG_INFO, "New map has (%d : %d) tiles", m.cells_x, m.cells_y);
+    TraceLog(LOG_INFO, "New tileset has (%d : %d) tiles", m.cells_x, m.cells_y);
     ChangeTilesetTexture(&m, texture);
     return m;
 }
@@ -27,15 +27,15 @@ void ChangeTilesetTexture(Tileset* s, Texture newTexture) {
     TraceLog(LOG_DEBUG, "Updated tileset texture");
 }
 
-void DrawTilesetTile(Tileset* s, int x, int y, int tileID) {
-    if (tileID < 0 || tileID > s->cells_x * s->cells_y) {
+void DrawTilesetTile(Tileset* s, int x, int y, unsigned short tileID) {
+    if (tileID < 0 || tileID >= s->cells_x * s->cells_y) {
         return;
     }
     Rectangle* source = &(s->cell_src[tileID]);
     DrawTextureRec(s->texture, *source, (Vector2) {x*s->cell_w,y*s->cell_h}, WHITE);
 }
 
-void DisposeTileset(Tileset* set) {
+void UnloadTileset(Tileset* set) {
     free(set->cell_src);
     TraceLog(LOG_INFO, "Tileset disposed");
 }

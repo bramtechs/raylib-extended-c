@@ -12,6 +12,8 @@ set(headers
     rewindow.h
     retiles.h
     reutils.h
+    remap.h
+    camera.h
 )
 
 # Sources to be compiled
@@ -21,6 +23,7 @@ set(src_s
     window.c
     tiles.c
     utils.c
+    remap.c
     )
 
 add_library(raylib-extended ${src_s} ${headers})
