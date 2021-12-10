@@ -1,12 +1,13 @@
 #include "retiles.h"
 
 Tileset CreateTileset(Texture texture, int cellSizeX, int cellSizeY){
-    Tileset m = { texture };
+    Tileset m;
+    m.texture = texture;
     m.cell_w = cellSizeX;
     m.cell_h = cellSizeY;
     m.cells_x = texture.width / cellSizeX;
     m.cells_y = texture.height / cellSizeY;
-    m.cell_src = (Rectangle*) malloc(sizeof(Rectangle)*m.cells_x*m.cells_y);
+    m.cell_src = (Rectangle*) MemAlloc(sizeof(Rectangle)*m.cells_x*m.cells_y);
     TraceLog(LOG_INFO, "New tileset has (%d : %d) tiles", m.cells_x, m.cells_y);
     ChangeTilesetTexture(&m, texture);
     return m;
@@ -32,7 +33,8 @@ void DrawTilesetTile(Tileset* s, int x, int y, unsigned short tileID) {
         return;
     }
     Rectangle* source = &(s->cell_src[tileID]);
-    DrawTextureRec(s->texture, *source, (Vector2) {x*s->cell_w,y*s->cell_h}, WHITE);
+    Vector2 pos = (Vector2){ x * s->cell_w, y * s->cell_h };
+    DrawTextureRec(s->texture, *source, pos, WHITE);
 }
 
 void UnloadTileset(Tileset* set) {

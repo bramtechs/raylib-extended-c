@@ -2,17 +2,18 @@
 
 Map CreateMap(Tileset* tiles, int tilesX, int tilesY)
 {
-	Map m = { "none" };
+	Map m;
+	m.path = "none";
 	m.tileset = tiles;
 	m.width = tilesX;
 	m.height = tilesY;
 
-	int bytes = sizeof(unsigned short) * tilesX * tilesY;
-	m.tiles = (unsigned short*) malloc(bytes);
+	m.tiles = (unsigned short*) MemAlloc(sizeof(unsigned short) * tilesX * tilesY);
 
 	for (int i = 0; i < tilesX*tilesY; i++)
 	{
-		m.tiles[i] = USHRT_MAX;
+		m.tiles[i] = 500;
+		//TraceLog("mem %d", i);
 	}
 
 	TraceLog(LOG_INFO, "Created map (%s) of size (%d : %d)", m.path, tilesX, tilesY);
@@ -83,7 +84,7 @@ void DrawMapOptimized(Map *map, int offsetX, int offsetY, Camera2D* cam, int gam
 			if (CheckCollisionPointRec(pos, visible_rect))
 			{
 				int i = y * mapWidth + x;
-				int id = map->tiles[i];
+				unsigned short id = map->tiles[i];
 				DrawTilesetTile(map->tileset, x, y, id);
 				map->tilesDrawn++;
 			}

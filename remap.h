@@ -26,12 +26,12 @@ typedef struct {
 
 // Creates a blank map file (needs to be filled in manually)
 // Use SaveMapAs() when exporting, *not* SaveMap().
-Map CreateMap(Tileset tiles, int mapW, int mapH);
+Map CreateMap(Tileset* tiles, int mapW, int mapH);
 
 // Loads a map from a .map file.
 // You can use this method in conjunction with SaveMap(), in other cases use SaveMapAs()
 // Returns CreateMap() if file doesn't exist.
-Map LoadMapFromFile(Tileset tiles, char* mapPath);
+Map LoadMapFromFile(Tileset* tiles, char* mapPath);
 
 // Saves the map to a defined path
 // Use this to make copies of a map
