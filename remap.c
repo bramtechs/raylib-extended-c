@@ -3,10 +3,11 @@
 Map CreateMap(Tileset* tiles, int tilesX, int tilesY)
 {
 	Map m;
-	m.path = "none";
+	m.path = "unnamed_map";
 	m.tileset = tiles;
 	m.width = tilesX;
 	m.height = tilesY;
+	m.outOfBounds = false;
 
 	m.tiles = (unsigned short*) MemAlloc(sizeof(unsigned short) * tilesX * tilesY);
 
@@ -38,12 +39,11 @@ Map SaveMap(Map* map)
 
 void SetMapTile(Map* map, int x, int y, unsigned short id)
 {
-	if (x < 0 || x >= map->width) {
+	if (x < 0 || x >= map->width || y < 0 || y >= map->height) {
+		map->outOfBounds = true;
 		return;
 	}
-	if (y < 0 || y >= map->height) {
-		return;
-	}
+
 	int cellsX = map->tileset->cells_x;
 	int cellsY = map->tileset->cells_y;
 	int i = y * map->width+x;
@@ -115,6 +115,17 @@ void DrawMap(Map* map, int offsetX, int offsetY)
 void UnloadMap(Map* map) {
 	free(map->tiles);
 	TraceLog(LOG_INFO, "Disposed map %s", map->path);
+}
+
+void DrawMapDebugText(Map* map, int x, int y, int fontSize)
+{
+	char warnings[15];
+	if (map->outOfBounds) {
+		strcpy(warnings,"OUT OF BOUNDS!");
+	}
+
+	char* text = TextFormat("-> %s (%d : %d)\nTiles drawn %d\n%s", map->path,map->width,map->height, map->tilesDrawn, warnings);
+	DrawText(text, x, y, fontSize, ORANGE);
 }
 
 int GetTilesDrawn(Map* map)

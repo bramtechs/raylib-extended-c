@@ -19,6 +19,7 @@ typedef struct {
 	int height;
 
 	int tilesDrawn;
+	bool outOfBounds; // Becomes true when you change tiles outside of the map. Is shown in DrawMapDebugText()
 
 	Tileset* tileset;
 
@@ -55,6 +56,9 @@ void DrawMapOptimized(Map *map, int offsetX, int offsetY, Camera2D *cam, int gam
 
 // Dispose the map if you don't need it anymore
 void UnloadMap(Map *map);
+
+// Draw some debugging information of the map
+void DrawMapDebugText(Map *map, int x, int y, int fontSize);
 
 int GetTilesDrawn(Map* map);
 
