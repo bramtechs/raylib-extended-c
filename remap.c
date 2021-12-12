@@ -22,7 +22,7 @@ Map CreateMap(Tileset* tiles, int tilesX, int tilesY)
 	return m;
 }
 
-Map LoadMapFromFile(Tileset tiles, char* mapPath)
+Map LoadMapFromFile(Tileset* tiles, char* mapPath)
 {
 
 }
@@ -60,10 +60,10 @@ void DrawMapOptimized(Map *map, int offsetX, int offsetY, Camera2D* cam, int gam
 	//occlusion
 	Vector2 bot_right = GetScreenToWorld2D((Vector2) { gameW, gameH }, *cam);
 	Vector2 top_left = GetScreenToWorld2D((Vector2) { 0, 0 }, *cam);
-	//bot_right.x = max(bot_right.x, gameW);
-	//bot_right.y = max(bot_right.y, gameH);
-	//top_left.x = max(top_left.x, 0);
-	//top_left.y = max(top_left.y, 0);
+	bot_right.x = max(bot_right.x, gameW);
+	bot_right.y = max(bot_right.y, gameH);
+	top_left.x = max(top_left.x, 0);
+	top_left.y = max(top_left.y, 0);
 
 	int mapHeight = map->height;
 	int mapWidth = map->width;
@@ -91,7 +91,7 @@ void DrawMapOptimized(Map *map, int offsetX, int offsetY, Camera2D* cam, int gam
 		}
 	}
 
-	
+
 }
 
 void DrawMap(Map* map, int offsetX, int offsetY)

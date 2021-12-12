@@ -4,12 +4,14 @@
 #include "raylib.h"
 #include "retiles.h"
 
+#define max(a, b) ((a)>(b)? (a) : (b))
+#define min(a, b) ((a)<(b)? (a) : (b))
+
 // A map is basically a 2d array, with a tileset
 // a draw method will draw all the tiles of the map
 // Map also has editing functions
 // Map can save every tile id to a file or load all tile ids from a file.
 // TODO later prop system
-
 typedef struct {
 
 	char* path;

@@ -1,6 +1,8 @@
 #ifndef RE_UTILS_H
 #define RE_UTILS_H
 
+#include "raylib.h"
+
 typedef struct {
 	int x;
 	int y;
