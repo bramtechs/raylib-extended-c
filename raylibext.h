@@ -5,6 +5,6 @@
 #include "rewindow.h"
 #include "retiles.h"
 #include "remap.h"
-#include "camera.h"
+#include "recamera.h"
 
 #endif

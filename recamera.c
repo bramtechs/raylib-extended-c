@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "camera.h"
+#include "recamera.h"
 
 void MoveCamera2DWithKeyboard(Camera2D* cam, float speed)
 {

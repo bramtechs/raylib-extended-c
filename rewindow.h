@@ -9,10 +9,10 @@ float GetWindowScale();
 Vector2 GetVirtualMousePosition();
 void DrawLetterboxGame(RenderTexture* target);
 
-// Try to center the window on the correct monitor when having two.
+// Try to center the window on the correct monitor when having one or two.
 void CenterWindow();
 
-// Try to center the window on the correct monitor when having two.
+// Try to center the window on the correct monitor when having one or two.
 void CenterWindowManual(int winWidth, int winHeight);
 
 // Multiply the dimensions of the window

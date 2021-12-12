@@ -13,16 +13,16 @@ set(headers
     retiles.h
     reutils.h
     remap.h
-    camera.h
+    recamera.h
 )
 
 # Sources to be compiled
 set(src_s
     #src/tiles.c
-    camera.c
-    window.c
-    tiles.c
-    utils.c
+    recamera.c
+    rewindow.c
+    retiles.c
+    reutils.c
     remap.c
     )
 

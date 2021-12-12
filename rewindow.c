@@ -64,28 +64,31 @@ void ScaleWindow(float scale)
     SetWindowSize(width,height);
 }
 
-// Try to center the window on the correct monitor when having two.
+// Try to center the window on the correct monitor when having one or two.
 void CenterWindow()
 {
     CenterWindow(GetScreenWidth(),GetScreenHeight());
 }
 
-// Try to center the window on the correct monitor when having two.
+// Try to center the window on the correct monitor when having one or two.
 void CenterWindowManual(int winWidth, int winHeight)
 {
     // Center the window (if there are two)
+    int curMonitor = GetCurrentMonitor();
+    int x = GetMonitorWidth(curMonitor)*0.5;
+    int y = GetMonitorHeight(curMonitor)*0.5;
+
+    //offset
+    x -= winWidth*0.5;
+    y -= winHeight*0.5;
+
+    // shift the window to the other monitor
     int monCount = GetMonitorCount();
     if (monCount == 2){
-        int curMonitor = GetCurrentMonitor();
         int otherMonitor = curMonitor == 0 ? 1:0;
-        int x = GetMonitorWidth(curMonitor)*0.5 + GetMonitorWidth(otherMonitor);
-        int y = GetMonitorHeight(curMonitor)*0.5;
+        x += GetMonitorWidth(otherMonitor);
 
-        //offset
-        x -= winWidth*0.5;
-        y -= winHeight*0.5;
-
-        SetWindowPosition(x,y);
-        TraceLog(LOG_INFO,"Recentered window at (%d : %d) (%d monitors)",x,y,monCount);
     }
+    SetWindowPosition(x,y);
+    TraceLog(LOG_INFO,"Recentered window at (%d : %d) (%d monitors)",x,y,monCount);
 }
